@@ -1,45 +1,43 @@
 # Binance SAFU Hackathon App
 
-## Project Brief: A Method for Verified Partner Fraud Submission
+## The Coral Protocol
+
+Coral Protocol is an anti-fraud protocol that protects businesses who are transacting or taking custody of cryptocurrency. Coral mitigates exposure to money laundering, theft, and other common fraud use cases. Coral tracks the flow of fraudulent funds and uses predictive analytics to assign actionable trust scores to all wallet addresses. Rather than relying only on identity, behavioral biometrics is utilized to reduce fraud.
+
+The goal of Coral as an organization is to build a **Green Zone** for blockchain payments. The green zone is an ecosystem where the incidence of fraud is reduced to that of the traditional payments industry - where it's safe even for the most vulnerable members of the population to participate.
+
+## A Method for Verified Partner Fraud Submission
+
+To build a comprehensive and reliable set of trust scores, training data is required.
 
 This is built for large trusted organizations that need to be able to submit and share information, not for individual submissions. This is B2B only - only for companies who want to submit fraud and contribute to Coral’s efforts to score wallets and create the green zone.
 
 ### Principles
 * Learn from 1990s Anti-spam movement.
-  * Trusted sources provided all the definitions
-  * Fine tuned governance required to prevent gaming of rating and submission systems.
+* Trusted sources provided all the definitions
+* Fine tuned governance required to prevent gaming of rating and submission systems.
 * Contributors should be verified organizations with proprietary, siloed data resources to offer.
-  *
 
 ### Questions
-1. Should individuals be able to PoA their address, and:
-   * Contest attestations of fraud?
-   * Attest to theft or fraud against them?
-
-
-### Validator Accreditation
-1. Generate a key-pair (validator account)
-  1. All Validators are approved by Coral as central authority
-  2. All validations must be signed
-2. Approves Fraud Submitters
-3. Reviews fraud that is submitted
-
-### Fraud Submission Engine
-1. Generate a key-pair (submitter account)
-  1. Submitters are approved by Validators
-  2. All fraud submissions would be signed by this key
-2. Submit in a standardized format
-  1. Category
-      1. Phishing
-      2. Money Laundering
-  2. Severity
-    1. 1-10 rating system
-3. Fire alerts
+* Should individuals be able to PoA their address, and contest attestations of fraud?
+* Should individuals be able to PoA their address, and attest to theft or fraud against them?
 
 ### Reputation System
-* All participants in the system have a reputation that is maintained based on performance
-* Keys can be revoked
+* All participants in the system have a reputation that is maintained based on performance.
+* All actions taken by all participants are signed with keys.
+* Keys can be revoked by authorities.
+* All actions signed by revoked keys are invalidated and are subject to review.
 
+### Validator Accreditation
+* All Validators are approved by Coral as central authority.
+* Validators can review and approve entities to contribute fraud data.
+* Validators can review and reject erroneous fraud submissions.
+
+### Fraud Submission Engine
+* All Contributors must be approved by validators.
+* All fraud submissions must be in a standardized format.
+* All fraud must be categorized.
+* All fraud submissions must be rated by impact.
 
 # API
 
