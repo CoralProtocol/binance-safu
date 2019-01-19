@@ -16,10 +16,12 @@ export const store = new Vuex.Store({
   state: {
     walletBalance: null,
     instances: [],
-    score: {
-      id: null,
+    reportedScore: {
+      status: null,
       address: null,
-      blockchain: null,
+      score: null,
+      properties: null,
+      confirmed: null,      
       reason: null,
       severity: null,
       metadata: null
@@ -27,7 +29,6 @@ export const store = new Vuex.Store({
     firstName: null,
     allowedToSubmitFraud: false,
     allowedToReviewFraud: false,
-    scores: [],
     status: null
   },
   getters : {},
@@ -40,12 +41,14 @@ export const store = new Vuex.Store({
     SET_SCORE (state, res) {
       console.log('Score mutation successful:')
       console.log(res)
-      state.score.id = res._id
-      state.score.address = res.address
-      state.score.blockchain = res.blockchain
-      state.score.reason = res.reason
-      state.score.severity = res.severity
-      state.score.metadata = res.metadata
+      state.reportedScore.status = res.status
+      state.reportedScore.address = res.data.address
+      state.reportedScore.score = res.data.score
+      state.reportedScore.properties = res.data.properties
+      state.reportedScore.confirmed = res.data.confirmed
+      state.reportedScore.reason = res.data.reason
+      state.reportedScore.severity = res.data.severity
+      state.reportedScore.metadata = res.data.metadata
     },
     SET_USER_DATA (state, res) {
       console.log(res)
@@ -62,6 +65,7 @@ export const store = new Vuex.Store({
     },
     CLEAR_ITEMS (state) {
       state.scores = null
+      state.score = null
     }
   },
   actions: {
