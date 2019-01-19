@@ -2,12 +2,14 @@
 
 ## Project Brief
 
-Verified Partner Fraud Submission
-
-Learn from Anti-spam movement: trusted sources provided all the definitions.
-Governance required to prevent gaming of rating systems - it does not exist
+A Method for Verified Partner Fraud Submission:
 
 This is built for large trusted organizations that need to be able to submit and share information, not for individual submissions. This is B2B only - only for companies who want to submit fraud and contribute to Coral’s efforts to score wallets and create the green zone.
+
+### Principles
+* Learn from 1990s Anti-spam movement.
+  * Trusted sources provided all the definitions
+  * Fine tuned governance required to prevent gaming of rating and submission systems.
 
 ### Validator Accreditation
 1. Generate a key-pair (validator account)
