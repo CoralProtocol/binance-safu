@@ -3,25 +3,49 @@
     <h1>Query for Trust Scores</h1>
     <!-- Container for the 'request score/alerting' functionality -->
     <div class="request container">
-      Chain: <input v-model="id_chain" placeholder="eth or btc">
+      Chain:
+      <select v-model="id_chain">
+        <option value="eth">Eth</option>
+        <option value="btc">Btc</option>
+      </select>&nbsp;
       Address: <input v-model="id_address" placeholder="ex: 0x28hlm72...">
+      Name: <input v-model="id_name" placeholder="">
+      URL: <input v-model="id_url" placeholder="">
         <p> </p>
         <button v-on:click="clickRequestScoreEvent">Request Score</button>
         <button v-on:click="clickRequestAlertingEvent">Request Alerting</button>
-      <!-- <img v-if="pending" id="loader" src="https://loading.io/spinners/double-ring/lg.double-ring-spinner.gif"> -->
-      <div class="event" v-if="requestScoreEvent">
-        <p v-if="requestScoreEvent.trustScore" id="request-score-event-succeed"><i aria-hidden="true" class="fa fa-check"></i> Trust Score: {{requestScoreEvent._trustScore}}.</p>
-        <p v-else id="request-score-event-failed"><i aria-hidden="true" class="fa fa-times"></i> Error: Score not returned.</p>
-      </div>
-      <!-- <div class="event" v-if="requestAlertingEvent">
-        <p v-if="requestAlertingEvent.trustScore" id="request-alerting-event-succeed"><i aria-hidden="true" class="fa fa-check"></i> Trust Score: {{requestAlertingEvent._result}}.</p>
-        <p v-else id="request-alerting-event-failed"><i aria-hidden="true" class="fa fa-times"></i> Error: Score not returned.</p>
-      </div> -->
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Address</th>
+            <th>Score</th>
+            <th>Properties</th>
+            <th>Confirmed</th>
+            <th>Reason</th>
+            <th>Severity</th>
+            <th>Metadata</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="oneScore in scores" :key="oneScore.address">
+            <td>{{ oneScore.address }}</td>
+            <td>{{ oneScore.score }}</td>
+            <td>{{ oneScore.properties }}</td>
+            <td>{{ oneScore.confirmed }}</td>
+            <td>{{ oneScore.reason }}</td>
+            <td>{{ oneScore.severity }}</td>
+            <td>{{ oneScore.metadata }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p> {{ status }} </p>
+
     </div>
   </div>
 </template>
 <script>
-
+import { mapState } from 'vuex'
 export default {
   name: 'scores-component',
   data () {
@@ -29,15 +53,21 @@ export default {
       msg: 'Request address score/alerts',
       id_address: null,
       id_chain: null,
+      id_name: null,
+      id_url: null,
       pending: false,
       requestScoreEvent: null,
       requestAlertingEvent: null
     }
   },
+  computed: mapState([
+    'scores',
+    'status'
+  ]),
   methods: {
     clickRequestScoreEvent (event) {
       // Reset event
-      this.requestScoreEvent = null
+      // this.requestScoreEvent = null
       const payload = {
         blockchain: this.id_chain,
         address: this.id_address
@@ -49,17 +79,20 @@ export default {
           console.log(err)
         }
       })
+      // Reset payload
       this.id_address = null
       this.id_chain = null
     },
     clickRequestAlertingEvent (event) {
       // Reset event
-      this.requestAlertingEvent = null
+      // this.requestAlertingEvent = null
       const payload = {
         blockchain: this.id_chain,
-        address: this.id_address
+        address: this.id_address,
+        name: this.id_name,
+        url: this.id_url
       }
-      this.$store.dispatch('getScore', payload, {
+      this.$store.dispatch('setAlerting', payload, {
 
       }, (err, result) => {
         if (err) {
@@ -68,6 +101,8 @@ export default {
       })
       this.id_address = null
       this.id_chain = null
+      this.id_name = null
+      this.id_url = null
     }
   }
 }

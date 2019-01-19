@@ -26,12 +26,14 @@ export const store = new Vuex.Store({
     },
     firstName: null,
     allowedToSubmitFraud: false,
-    allowedToReviewFraud: false
+    allowedToReviewFraud: false,
+    scores: [],
+    status: null
   },
   getters : {},
   mutations: {
     SET_INSTANCES (state, res) {
-      console.log('get fraud instances successful:')
+      console.log('fraud instances successful:')
       console.log(res)
       state.instances = res
     },
@@ -51,6 +53,15 @@ export const store = new Vuex.Store({
       state.firstName = res.firstName
       state.allowedToSubmitFraud = res.allowedToSubmitFraud
       state.allowedToReviewFraud = res.allowedToReviewFraud
+
+    },
+    SET_ALERTING (state, res) {
+      console.log('alerting mutation successful:')
+      console.log(res)
+      state.status = res
+    },
+    CLEAR_ITEMS (state) {
+      state.scores = null
     }
   },
   actions: {
@@ -64,10 +75,22 @@ export const store = new Vuex.Store({
       commit('SET_SCORE', response.data)
       return response.data
     },
+    async setAlerting ({ commit }, payload) {
+      var response = await axios({
+        method: 'post',
+        url: 'http://localhost:3000/trust-score-alerts/',
+        data: payload
+      });
+      commit('SET_ALERTING', response.data)
+      return response.data
+    },
     async loadInstances ({ commit }) {
       const response = await axios.get('http://localhost:3000/fraud-instances')
       commit('SET_INSTANCES', response.data)
       return response.data
+    },
+    clearItems ({ commit }) {
+      commit('CLEAR_ITEMS')
     },
     async verifyFraudInstance ({ commit }, payload) {
       console.log(payload.urlSnippet);
