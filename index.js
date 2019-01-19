@@ -1,15 +1,15 @@
 // Expose this with `ngrok $PORT`
 require('dotenv').config()
-const express = require('express');
-const path = require('path');
-const bodyParser = require('body-parser');
-const compress = require('compression')();
+
+const express = require('express')
 const expressValidator = require('express-validator');
+const app = express()
+const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
 const cors = require('cors');
 const routes = require('./routes')
-const mongoose = require('mongoose')
 
-const databaseUri = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/binance_safu'
+const databaseUri = process.env.MONGODB_URI
 mongoose.connect(databaseUri, {
   useNewUrlParser: true
 })
@@ -22,7 +22,6 @@ const corsOptions = {
   origin: '*'
 };
 
-const app = express();
 app.use(bodyParser());
 app.use(expressValidator());
 app.use(express.json());
