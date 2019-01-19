@@ -11,7 +11,7 @@
       <tr><td>Reason</td><td>  <select v-model="id_reason">
         <option value="blackmail" selected="selected">Blackmail</option>
         <option value="ofac">Government Watchlist</option>
-        <option value="ransomeware">Ransomware</option>
+        <option value="ransomware">Ransomware</option>
         <option value="social_media_platform">Malicious Social Media Posting</option>
         </select></td></tr>
       <tr><td>Severity</td><td><input v-model="id_severity" placeholder="1"></td></tr>
@@ -86,6 +86,6 @@ a {
 }
 
 .container {
-  width:370px;
+  width:800px;
 }
 </style>

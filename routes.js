@@ -47,6 +47,7 @@ router.get('/trust-scores/:blockchain/:address', (req, res, next) => {
 
       // Merge with our local Mongo instance
       var payload = JSON.parse(body)
+      console.log(payload.data)
       var baseScore  = 100 - (payload.data.score * 13);
       FraudInstanceModel.findOne({address: address}, function(error, instance) {
         if (instance) {

@@ -16,46 +16,16 @@
         <button v-on:click="clickRequestScoreEvent">Request Score</button>
         <button v-on:click="clickRequestAlertingEvent">Request Alerting</button>
 
-      <p> {{ status }} </p>
+        <table class="table table-striped" v-if="reportedScore.address">
+          <tr><td>Address</td><td>{{ reportedScore.address }}</td></tr>
+          <tr><td>Score</td><td>{{ reportedScore.score }}</td></tr>
+          <tr><td>Properties</td><td class="markdown">{{ JSON.stringify(reportedScore.properties, null, 4) }}</td></tr>
+          <tr v-if="reportedScore.confirmed"><td>Confirmed</td><td>{{ reportedScore.confirmed }}</td></tr>
+          <tr v-if="reportedScore.reason"><td>Reason</td><td>{{ reportedScore.reason }}</td></tr>
+          <tr v-if="reportedScore.severity"><td>Severity</td><td>{{ reportedScore.severity }}</td></tr>
+          <tr v-if="reportedScore.metadata"><td>Metadata</td><td class="markdown">{{ JSON.stringify(JSON.parse(reportedScore.metadata), null, 4) }}</td></tr>
 
-        <div v-if="reportedScore">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>Address</th>
-                <th>Score</th>
-                <th>Properties</th>
-              </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td>{{ reportedScore.address }}</td>
-              <td>{{ reportedScore.score }}</td>
-              <td>{{ reportedScore.properties }}</td>
-            </tr>
-          </tbody>
         </table>
-        </div>
-          <div v-if="reportedScore.severity">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>Confirmed</th>
-                  <th>Reason</th>
-                  <th>Severity</th>
-                  <th>Metadata</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>{{ reportedScore.confirmed }}</td>
-                  <td>{{ reportedScore.reason }}</td>
-                  <td>{{ reportedScore.severity }}</td>
-                  <td>{{ reportedScore.metadata }}</td>
-                </tr>
-              </tbody>
-            </table>
-        </div>
     </div>
   </div>
 </template>
@@ -76,9 +46,7 @@ export default {
     }
   },
   computed: mapState([
-    'scores',
-    'reportedScore',
-    'status'
+    'reportedScore'
   ]),
   methods: {
     clickRequestScoreEvent (event) {
@@ -138,9 +106,6 @@ h1, h2 {
 #button {
   width:25px;
 }
-*{
-   color: #444444;
-}
 #request-score-event-succeed {
   color: green;
 }
@@ -155,6 +120,6 @@ h1, h2 {
 }
 
 .container {
-  width:370px;
+  width:800px;
 }
 </style>

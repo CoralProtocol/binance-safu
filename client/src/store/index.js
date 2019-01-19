@@ -17,7 +17,6 @@ export const store = new Vuex.Store({
     walletBalance: null,
     instances: [],
     reportedScore: {
-      status: null,
       address: null,
       score: null,
       properties: null,
@@ -41,7 +40,6 @@ export const store = new Vuex.Store({
     SET_SCORE (state, res) {
       console.log('Score mutation successful:')
       console.log(res)
-      state.reportedScore.status = res.status
       state.reportedScore.address = res.data.address
       state.reportedScore.score = res.data.score
       state.reportedScore.properties = res.data.properties

@@ -95,10 +95,4 @@ a {
 td {
   text-align: center;
 }
-.markdown {
-  font-family: "Lucida Console", Monaco, monospace;
-  font-size: 0.8rem;
-  line-height: 1.2;
-  text-align: left;
-}
 </style>

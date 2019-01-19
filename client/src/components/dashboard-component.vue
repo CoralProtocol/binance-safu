@@ -22,7 +22,7 @@ export default {
   name: 'dashboard-component',
   data () {
     return {
-      title: 'Fraud Dashboard',
+      title: 'SAFU Fraud Dashboard',
       tagline: 'Coral Protocol'
     }
   },
