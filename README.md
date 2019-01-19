@@ -1,8 +1,6 @@
 # Binance SAFU Hackathon App
 
-## Project Brief
-
-A Method for Verified Partner Fraud Submission:
+## Project Brief: A Method for Verified Partner Fraud Submission
 
 This is built for large trusted organizations that need to be able to submit and share information, not for individual submissions. This is B2B only - only for companies who want to submit fraud and contribute to Coral’s efforts to score wallets and create the green zone.
 
@@ -10,6 +8,14 @@ This is built for large trusted organizations that need to be able to submit and
 * Learn from 1990s Anti-spam movement.
   * Trusted sources provided all the definitions
   * Fine tuned governance required to prevent gaming of rating and submission systems.
+* Contributors should be verified organizations with proprietary, siloed data resources to offer.
+  *
+
+### Questions
+1. Should individuals be able to PoA their address, and:
+   * Contest attestations of fraud?
+   * Attest to theft or fraud against them?
+
 
 ### Validator Accreditation
 1. Generate a key-pair (validator account)
