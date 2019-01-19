@@ -5,8 +5,8 @@
     <div class="request container">
       Chain:
       <select v-model="id_chain">
-        <option value="eth">Eth</option>
-        <option value="btc">Btc</option>
+        <option value="eth">eth</option>
+        <option value="btc">btc</option>
       </select>&nbsp;
       Address: <input v-model="id_address" placeholder="ex: 0x28hlm72...">
       Name: <input v-model="id_name" placeholder="">
@@ -66,7 +66,7 @@ export default {
     return {
       msg: 'Request address score/alerts',
       id_address: null,
-      id_chain: null,
+      id_chain: 'eth',
       id_name: null,
       id_url: null,
       pending: false,
