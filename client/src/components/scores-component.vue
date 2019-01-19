@@ -3,18 +3,19 @@
     <!-- <h2>{{ msg }}</h2> -->
     <!-- Container for the 'request score/alerting' functionality -->
     <div class="request container">
+      Chain: <input v-model="id_chain" placeholder="eth or btc">
       Address: <input v-model="id_address" placeholder="ex: 0x28hlm72...">
         <p> </p>
-        <button v-on:click="requestScoreEvent">Request Score</button>
-        <button v-on:click="requestAlertingEvent">Request Alerting</button>
-      <img v-if="pending" id="loader" src="https://loading.io/spinners/double-ring/lg.double-ring-spinner.gif">
+        <button v-on:click="clickRequestScoreEvent">Request Score</button>
+        <button v-on:click="clickRequestAlertingEvent">Request Alerting</button>
+      <!-- <img v-if="pending" id="loader" src="https://loading.io/spinners/double-ring/lg.double-ring-spinner.gif"> -->
       <div class="event" v-if="requestScoreEvent">
         <p v-if="requestScoreEvent.trustScore" id="request-score-event-succeed"><i aria-hidden="true" class="fa fa-check"></i> Trust Score: {{requestScoreEvent._trustScore}}.</p>
         <p v-else id="request-score-event-failed"><i aria-hidden="true" class="fa fa-times"></i> Error: Score not returned.</p>
       </div>
       <!-- <div class="event" v-if="requestAlertingEvent">
-        <p v-if="requestScoreEvent.trustScore" id="request-score-event-succeed"><i aria-hidden="true" class="fa fa-check"></i> Trust Score: {{requestScoreEvent._trustScore}}.</p>
-        <p v-else id="request-score-event-failed"><i aria-hidden="true" class="fa fa-times"></i> Error: Score not returned.</p>
+        <p v-if="requestAlertingEvent.trustScore" id="request-alerting-event-succeed"><i aria-hidden="true" class="fa fa-check"></i> Trust Score: {{requestAlertingEvent._result}}.</p>
+        <p v-else id="request-alerting-event-failed"><i aria-hidden="true" class="fa fa-times"></i> Error: Score not returned.</p>
       </div> -->
     </div>
   </div>
@@ -27,9 +28,46 @@ export default {
     return {
       msg: 'Request address score/alerts',
       id_address: null,
+      id_chain: null,
       pending: false,
       requestScoreEvent: null,
       requestAlertingEvent: null
+    }
+  },
+  methods: {
+    clickRequestScoreEvent (event) {
+      // Reset event
+      this.requestScoreEvent = null
+      const payload = {
+        blockchain: this.id_chain,
+        address: this.id_address
+      }
+      this.$store.dispatch('getScore', payload, {
+
+      }, (err, result) => {
+        if (err) {
+          console.log(err)
+        }
+      })
+      this.id_address = null
+      this.id_chain = null
+    },
+    clickRequestAlertingEvent (event) {
+      // Reset event
+      this.requestAlertingEvent = null
+      const payload = {
+        blockchain: this.id_chain,
+        address: this.id_address
+      }
+      this.$store.dispatch('getScore', payload, {
+
+      }, (err, result) => {
+        if (err) {
+          console.log(err)
+        }
+      })
+      this.id_address = null
+      this.id_chain = null
     }
   }
 }
@@ -49,28 +87,10 @@ export default {
 *{
    color: #444444;
 }
-#node-add-succeeded {
+#request-score-event-succeed {
   color: green;
 }
-#node-add-failed {
-  color:red;
-}
-#is-node-succeeded {
-  color: green;
-}
-#is-node-failed {
-  color:red;
-}
-#view-count-incremented {
-  color: green;
-}
-#view-count-not-incremented {
-  color:red;
-}
-#get-view-count-succeed {
-  color: green;
-}
-#get-view-count-failed {
+#request-score-event-failed {
   color:red;
 }
 #structure-succeed {
