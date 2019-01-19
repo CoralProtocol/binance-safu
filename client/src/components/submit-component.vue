@@ -1,5 +1,5 @@
 <template>
-  <div class="submit container">
+  <div class="submit container" v-if="allowedToSubmitFraud">
     <h1>{{ msg }}</h1>
     <div class="request container">
       Chain:
@@ -22,12 +22,12 @@
 </template>
 
 <script>
-
+import { mapState } from 'vuex'
 export default {
   name: 'submit-component',
   data () {
     return {
-      msg: 'SUBMIT component',
+      msg: 'Submit Evidence of Fraud',
       id_reason: 'blackmail',
       id_chain: 'eth',
       id_metadata: '',
@@ -35,6 +35,9 @@ export default {
       id_severity: ''
     }
   },
+  computed: mapState([
+    'allowedToSubmitFraud'
+  ]),
   methods: {
     submitEvidenceOfFraud (event) {
       const payload = {
@@ -45,7 +48,7 @@ export default {
         metadata: this.id_metadata
       }
       console.log(payload)
-      this.$store.dispatch('getScore', payload, {
+      this.$store.dispatch('submitEvidenceOfFraud', payload, {
 
       }, (err, result) => {
         if (err) {

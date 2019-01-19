@@ -21,7 +21,7 @@ export const store = new Vuex.Store({
       address: null,
       score: null,
       properties: null,
-      confirmed: null,      
+      confirmed: null,
       reason: null,
       severity: null,
       metadata: null
@@ -86,6 +86,16 @@ export const store = new Vuex.Store({
         data: payload
       });
       commit('SET_ALERTING', response.data)
+      return response.data
+    },
+    async submitEvidenceOfFraud ({ commit }, payload) {
+      var response = await axios({
+        method: 'post',
+        url: 'http://localhost:3000/fraud-instances/',
+        data: payload
+      });
+      response = await axios.get('http://localhost:3000/fraud-instances')
+      commit('SET_INSTANCES', response.data)
       return response.data
     },
     async loadInstances ({ commit }) {
