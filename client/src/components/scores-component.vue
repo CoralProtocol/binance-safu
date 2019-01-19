@@ -7,7 +7,7 @@
       Address: <input v-model="id_address" placeholder="ex: 0x28hlm72...">
         <p> </p>
         <button v-on:click="clickRequestScoreEvent">Request Score</button>
-        <!--  <button v-on:click="clickRequestAlertingEvent">Request Alerting</button> -->
+        <button v-on:click="clickRequestAlertingEvent">Request Alerting</button>
       <!-- <img v-if="pending" id="loader" src="https://loading.io/spinners/double-ring/lg.double-ring-spinner.gif"> -->
       <div class="event" v-if="requestScoreEvent">
         <p v-if="requestScoreEvent.trustScore" id="request-score-event-succeed"><i aria-hidden="true" class="fa fa-check"></i> Trust Score: {{requestScoreEvent._trustScore}}.</p>
@@ -36,9 +36,25 @@ export default {
   },
   methods: {
     clickRequestScoreEvent (event) {
-      // Reset variables
+      // Reset event
       this.requestScoreEvent = null
-      // this.id_address = null
+      const payload = {
+        blockchain: this.id_chain,
+        address: this.id_address
+      }
+      this.$store.dispatch('getScore', payload, {
+
+      }, (err, result) => {
+        if (err) {
+          console.log(err)
+        }
+      })
+      this.id_address = null
+      this.id_chain = null
+    },
+    clickRequestAlertingEvent (event) {
+      // Reset event
+      this.requestAlertingEvent = null
       const payload = {
         blockchain: this.id_chain,
         address: this.id_address
