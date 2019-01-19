@@ -1,7 +1,6 @@
 <template>
-  <div class="review container">
-    <!-- <h1>{{ msg }}</h1> -->
-    <button v-on:click="clickGetFraudInstances">Get fraud instances</button>
+  <div class="review container" v-if="allowedToReviewFraud">
+    <h1>Evidence of Fraud that Needs Review</h1>
     <table class="table table-striped">
       <thead>
         <tr>
@@ -42,10 +41,11 @@ export default {
   //   this.$store.dispatch('loadInstances')
   // },
   computed: mapState([
-    'instances'
+    'instances',
+    'allowedToReviewFraud'
   ]),
   methods: {
-    clickGetFraudInstances (event) {
+    getFraudInstances (event) {
       // Reset variables
       this.fraudInstancesEvent = null
       this.$store.dispatch('loadInstances', {
@@ -68,6 +68,9 @@ export default {
         }
       })
     }
+  },
+  created () {
+    this.getFraudInstances()
   }
 }
 </script>

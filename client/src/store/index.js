@@ -14,7 +14,7 @@ Vue.use(VueAxios, axios)
 
 export const store = new Vuex.Store({
   state: {
-    balance: null,
+    walletBalance: null,
     instances: [],
     score: {
       id: null,
@@ -24,6 +24,9 @@ export const store = new Vuex.Store({
       severity: null,
       metadata: null
     },
+    firstName: null,
+    allowedToSubmitFraud: false,
+    allowedToReviewFraud: false
   },
   getters : {},
   mutations: {
@@ -41,6 +44,13 @@ export const store = new Vuex.Store({
       state.score.reason = res.reason
       state.score.severity = res.severity
       state.score.metadata = res.metadata
+    },
+    SET_USER_DATA (state, res) {
+      console.log(res)
+      state.walletBalance = res.walletBalance
+      state.firstName = res.firstName
+      state.allowedToSubmitFraud = res.allowedToSubmitFraud
+      state.allowedToReviewFraud = res.allowedToReviewFraud
     }
   },
   actions: {
@@ -71,9 +81,11 @@ export const store = new Vuex.Store({
       response = await axios.get('http://localhost:3000/fraud-instances')
       commit('SET_INSTANCES', response.data)
       return response.data
-      // const response = await axios.get('http://localhost:3000/fraud-instances')
-      // commit('SET_INSTANCES', response.data)
-      // return response.data
-    }
+    },
+    async loadUserData ({ commit }) {
+      const response = await axios.get('http://localhost:3000/users/me')
+      commit('SET_USER_DATA', response.data)
+      return response.data
+    },
   },
 })

@@ -1,6 +1,6 @@
 <template>
   <div class="score container">
-    <!-- <h2>{{ msg }}</h2> -->
+    <h1>Query for Trust Scores</h1>
     <!-- Container for the 'request score/alerting' functionality -->
     <div class="request container">
       Chain: <input v-model="id_chain" placeholder="eth or btc">
@@ -75,6 +75,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+h1, h2 {
+  font-weight: normal;
+}
 #loader {
   position:absolute;
   left:0px;
