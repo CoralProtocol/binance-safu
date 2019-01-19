@@ -61,6 +61,38 @@ To `get` the trust score of an address
 
 `curl -XGET "localhost:3000/trust-scores/eth/0x3d9dfa1fbcb5b258d224fe6d147c2df9890a3c99" -H "x-api-key: 43c51a9c-4e50-471a-be52-22c836eaa867"`
 
+```
+{
+  "success": true,
+  "data": {
+    "address": "0x3d9dfa1fbcb5b258d224fe6d147c2df9890a3c99",
+    "score": 40.2,
+    "properties": [
+      {
+        "code": 1003,
+        "description": "No known tumbler interaction"
+      },
+      {
+        "code": 2000,
+        "description": "Low clout"
+      }
+    ],
+    "severity": 0,
+    "reason": "phishing",
+    "metadata": {
+      "url": "https://twitter.com/kurtwuckertjr/status/1085393730306220032?s=21"
+    },
+    "confirmed": false
+  }
+}
+```
+
+Note that this will debit your wallet by 1 REEF and perform payouts to contributors in the following fashion;
+
+* If Coral discovered the instance of fraud, we are credited 1 REEF
+* If a trusted third partner discovered this instance of fraud and it's unconfirmed, they are credited 0.8 REEF and Coral is credited 0.2 REEF
+* If a trusted third partner discovered this instance of fraud and it's confirmed, the contributor is credited 0.7 REEF, the reviewer is credited 0.1 REEF and Coral is credited 0.2 REEF
+
 ### Instances of Fraud
 
 **Submit Fraud Instances**
