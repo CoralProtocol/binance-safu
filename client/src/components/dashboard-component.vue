@@ -17,7 +17,6 @@ import BalanceComponent from '@/components/balance-component'
 import ScoresComponent from '@/components/scores-component'
 import SubmitComponent from '@/components/submit-component'
 import ReviewComponent from '@/components/review-component'
-// import FraudInstanceComponent from '@/components/fraud-instance-component'
 
 export default {
   name: 'dashboard-component',
@@ -27,12 +26,14 @@ export default {
       tagline: 'Coral Protocol'
     }
   },
+  beforeMount () {
+    this.$store.dispatch('clearItems')
+  },
   components: {
     'balance-component': BalanceComponent,
     'scores-component': ScoresComponent,
     'submit-component': SubmitComponent,
     'review-component': ReviewComponent
-    // 'fraud-instance-component': FraudInstanceComponent
   }
 }
 </script>

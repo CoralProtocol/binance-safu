@@ -84,7 +84,7 @@ router.get('/trust-scores/:blockchain/:address', (req, res, next) => {
           });
         }
 
-        payload.data.score = Math.min(100, Math.max(baseScore, 0));
+        payload.data.score = Math.round(Math.min(100, Math.max(baseScore, 0)));
         return res.status(200).send(payload)
       });
     });
