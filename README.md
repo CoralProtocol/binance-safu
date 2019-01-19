@@ -26,7 +26,7 @@ To `get` Denali's user object
 
 To `get` the trust score of an address
 
-`curl -XGET "localhost:8080/trust-scores/eth/0x3d9dfa1fbcb5b258d224fe6d147c2df9890a3c99" -H "x-api-key: 43c51a9c-4e50-471a-be52-22c836eaa867"`
+`curl -XGET "localhost:3000/trust-scores/eth/0x3d9dfa1fbcb5b258d224fe6d147c2df9890a3c99" -H "x-api-key: 43c51a9c-4e50-471a-be52-22c836eaa867"`
 
 ### Instances of Fraud
 
@@ -34,13 +34,13 @@ To `get` the trust score of an address
 
 To `submit` and instance of fraud, your user has to be authorized.
 
-`curl -XPOST "localhost:8080/fraud-instances" -H "x-api-key: 43c51a9c-4e50-471a-be52-22c836eaa867" -H "content-type: application/json" -d '{"address":"0x3d9dfa1fbcb5b258d224fe6d147c2df9890a3c99","blockchain":"eth","reason":"phishing","severity":10,"metadata":{"url":"https://twitter.com/kurtwuckertjr/status/1085393730306220032?s=21"}}'`
+`curl -XPOST "localhost:3000/fraud-instances" -H "x-api-key: 43c51a9c-4e50-471a-be52-22c836eaa867" -H "content-type: application/json" -d '{"address":"0x3d9dfa1fbcb5b258d224fe6d147c2df9890a3c99","blockchain":"eth","reason":"phishing","severity":10,"metadata":{"url":"https://twitter.com/kurtwuckertjr/status/1085393730306220032?s=21"}}'`
 
 **Review Fraud Instances**
 
 To `review` instances of fraud
 
-`curl -XGET "localhost:8080/fraud-instances/" -H "x-api-key: 43c51a9c-4e50-471a-be52-22c836eaa867"`
+`curl -XGET "localhost:3000/fraud-instances/" -H "x-api-key: 43c51a9c-4e50-471a-be52-22c836eaa867"`
 
 ```
 [
@@ -65,4 +65,4 @@ To `review` instances of fraud
 
 **Post a review of a Fraud Instance**
 
-`curl -XPOST "localhost:8080/fraud-instances/0x3d9dfa1fbcb5b258d224fe6d147c2df9890a3c99/review" -H "x-api-key: 43c51a9c-4e50-471a-be52-22c836eaa867" -H "content-type: application/json" -d '{"confirm":true}'`
+`curl -XPOST "localhost:3000/fraud-instances/0x3d9dfa1fbcb5b258d224fe6d147c2df9890a3c99/review" -H "x-api-key: 43c51a9c-4e50-471a-be52-22c836eaa867" -H "content-type: application/json" -d '{"confirm":true}'`
