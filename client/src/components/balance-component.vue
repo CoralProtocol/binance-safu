@@ -2,7 +2,6 @@
   <div class="balance">
     <h2 class="title">{{ msg }}</h2>
   </div>
-
 </template>
 
 <script>
