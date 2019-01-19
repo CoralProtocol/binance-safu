@@ -18,7 +18,7 @@ RUN npm install
 COPY . .
 
 # ENV that are safe to expose
-ENV PORT=8080
-EXPOSE 8080
+ENV PORT=3000
+EXPOSE 3000
 
 CMD [ "npm", "start" ]

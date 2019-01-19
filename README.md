@@ -49,7 +49,7 @@ This is built for large trusted organizations that need to be able to submit and
 
 To `get` Denali's user object
 
-`curl -XGET "localhost:8080/users/me" -H "x-api-key: 43c51a9c-4e50-471a-be52-22c836eaa867"`
+`curl -XGET "localhost:3000/users/me" -H "x-api-key: 43c51a9c-4e50-471a-be52-22c836eaa867"`
 
 
 ```
@@ -107,7 +107,7 @@ Note that this will debit your wallet by 1 REEF and perform payouts to contribut
 
 To set up an alert on an address to be notified whenever there's an instance of fraud tied to that address
 
-`curl -XPOST "localhost:8080/trust-score-alerts" -H "x-api-key: 43c51a9c-4e50-471a-be52-22c836eaa867" -H "content-type: application/json" -d '{"address":"0x3d9dfa1fbcb5b258d224fe6d147c2df9890a3c99","blockchain":"eth","name":"Binance SAFU (Trust Wallet)","url":"http://fee5ea86.ngrok.io/slack"}'`
+`curl -XPOST "localhost:3000/trust-score-alerts" -H "x-api-key: 43c51a9c-4e50-471a-be52-22c836eaa867" -H "content-type: application/json" -d '{"address":"0x3d9dfa1fbcb5b258d224fe6d147c2df9890a3c99","blockchain":"eth","name":"Binance SAFU (Trust Wallet)","url":"http://fee5ea86.ngrok.io/slack"}'`
 
 ## Contributors
 
@@ -153,7 +153,7 @@ To `review` instances of fraud
 
 ### Testing:
 * `npm start`
-* `ngrok http 8080`
+* `ngrok http 3000`
 * Create a trust score alert on an address
 * Request the score of that address
 * Create an instance of fraud on that address
