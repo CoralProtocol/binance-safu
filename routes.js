@@ -39,9 +39,52 @@ router.get('/trust-scores/:blockchain/:address', (req, res, next) => {
     request(options, (err, resp, body) => {
       if (err) { return console.log(err); }
 
+      // Adjust the requesting user's balance
+      UserModel.findOneAndUpdate({apiKey: { $regex : new RegExp(apiKey, "i") } },
+        {$inc : {walletBalance: -1}}, function(err, user) {
+      });
+
       // Merge with our local Mongo instance
-      FraudInstanceModel.findOne({address: req.body.address}, function(error, instance) {
-        return res.status(200).send(body)
+      var payload = JSON.parse(body)
+      var baseScore  = 100 - (payload.data.score * 13);
+      FraudInstanceModel.findOne({address: address}, function(error, instance) {
+        if (instance) {
+          payload.data.severity = instance.severity
+          payload.data.reason = instance.reason
+          payload.data.metadata = instance.metadata
+          payload.data.confirmed = instance.confirmed
+          payload.data.reviewer = instance.reviewer
+          baseScore = baseScore - instance.severity * 10;
+
+          var contributorPayout = 0.8
+          var reviewerPayout = 0.1
+          UserModel.findOneAndUpdate({apiKey: "coral" },
+            {$inc : {walletBalance: 0.2}}, function(err, user) {
+          });
+
+          // If there is a contributor, credit the contributor
+          if (instance.reviewer) {
+            UserModel.findOneAndUpdate({apiKey: instance.reviewer },
+              {$inc : {walletBalance: reviewerPayout}}, function(err, user) {
+            });
+            UserModel.findOneAndUpdate({apiKey: instance.contributor },
+              {$inc : {walletBalance: contributorPayout - reviewerPayout}}, function(err, user) {
+            });
+          } else {
+            UserModel.findOneAndUpdate({apiKey: instance.contributor },
+              {$inc : {walletBalance: contributorPayout}}, function(err, user) {
+            });
+          }
+          // If the fraud instance has been reviewed, credit the reviewer
+        } else {
+          // If there's no contributor, all the profits go to Coral
+          UserModel.findOneAndUpdate({apiKey: "coral" },
+            {$inc : {walletBalance: 1}}, function(err, user) {
+          });
+        }
+
+        payload.data.score = Math.min(100, Math.max(baseScore, 0));
+        return res.status(200).send(payload)
       });
     });
   });
