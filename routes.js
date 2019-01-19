@@ -4,7 +4,6 @@ const AppError = require('./config/error')
 const UserModel = require('./models/user')
 const FraudInstanceModel = require('./models/fraudInstance')
 
-const twilioClient = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 const { WebClient } = require('@slack/client');
 const slackClient = new WebClient(process.env.SLACK_TOKEN);
 
@@ -36,9 +35,14 @@ router.get('/trust-scores/:blockchain/:address', (req, res, next) => {
         "x-api-key": process.env.CORAL_API_KEY
       }
     }
-    request(options, (err, res, body) => {
+
+    request(options, (err, resp, body) => {
       if (err) { return console.log(err); }
-      res.json(body)
+
+      // Merge with our local Mongo instance
+      FraudInstanceModel.findOne({address: req.body.address}, function(error, instance) {
+        return res.status(200).send(body)
+      });
     });
   });
 });
@@ -96,23 +100,6 @@ router.post('/fraud-instances/:address/review', (req, res, next) => {
       });
     });
   });
-});
-
-/*
-This integration uses Twilio to text TO_PHONE number when an alert is triggered
-*/
-router.post('/twilio', (req, res, next) => {
-  twilioClient.messages
-  .create({
-     body: `heycoral.com 🐙 trust score alert ${req.body.name} on address ${req.body.address}; 🎉`,
-     from: process.env.TWILIO_FROM_PHONE_NUMBER,
-     to: process.env.TWILIO_TO_PHONE_NUMBER
-   })
-  .then(message => console.log(message.sid))
-  .done();
-
-  console.log(req.body);
-  return res.status(200).send('🎉');
 });
 
 /*
