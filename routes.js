@@ -1,6 +1,8 @@
+const request = require('request')
 const router = require('express').Router()
 const AppError = require('./config/error')
 const UserModel = require('./models/user')
+const FraudInstanceModel = require('./models/fraudInstance')
 
 const twilioClient = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 const { WebClient } = require('@slack/client');
@@ -14,10 +16,86 @@ router.post('/', (req, res, next) => {
 
 router.get('/users/me', (req, res, next) => {
   const apiKey = req.headers['x-api-key'];
-  const user = await UserModel.findOne({apiKey: { $regex : new RegExp(apiKey, "i") } })
-  console.log(user);
-  if (!user) return next(new AppError('User not found.'))
-  res.json(user)
+  UserModel.findOne({apiKey: { $regex : new RegExp(apiKey, "i") } }, function(err, user) {
+    if (!user) return res.status(404).send({ success: false, errors: [{ detail: "No such user"}] });
+    res.json(user)
+  });
+});
+
+router.get('/trust-scores/:blockchain/:address', (req, res, next) => {
+  const apiKey = req.headers['x-api-key'];
+  UserModel.findOne({apiKey: { $regex : new RegExp(apiKey, "i") } }, function(err, user) {
+    if (!user) return res.status(404).send({ success: false, errors: [{ detail: "No such user"}] });
+    const blockchain = req.params.blockchain
+    const address = req.params.address
+
+    const options = {
+      url: `https://api.heycoral.com/trust?address=${address}&blockchain=${blockchain}`,
+      method: "GET",
+      headers: {
+        "x-api-key": process.env.CORAL_API_KEY
+      }
+    }
+    request(options, (err, res, body) => {
+      if (err) { return console.log(err); }
+      res.json(body)
+    });
+  });
+});
+
+router.post('/fraud-instances', (req, res, next) => {
+  const apiKey = req.headers['x-api-key'];
+  UserModel.findOne({apiKey: { $regex : new RegExp(apiKey, "i") } }, function(err, user) {
+    if (!user) return res.status(404).send({ success: false, errors: [{ detail: "No such user"}] });
+    if (!user.allowedToSubmitFraud) return res.status(409).send({ success: false, errors: [{ detail: "Sorry! You're not authorized to submit instances of fraud"}] });
+
+    FraudInstanceModel.findOne({address: req.body.address}, function(error, instance) {
+      if (instance) return res.status(409).send({ success: false, errors: [{ detail: "This address has already been reported"}] });
+
+      var newInstance = req.body;
+      newInstance.constributor = apiKey;
+      newInstance.confirmed = false;
+
+      FraudInstanceModel.create(newInstance, function(error, instance) {
+        if (error) return res.status(400).send({ success: false, errors: [{ detail: "Schema error?"}] });
+        return res.status(200).send({ success: true });
+
+        // INSERT TO PSQL
+      });
+    });
+  });
+});
+
+router.get('/fraud-instances', (req, res, next) => {
+  const apiKey = req.headers['x-api-key'];
+  UserModel.findOne({apiKey: { $regex : new RegExp(apiKey, "i") } }, function(err, user) {
+    if (!user) return res.status(404).send({ success: false, errors: [{ detail: "No such user"}] });
+    if (!user.allowedToReviewFraud) return res.status(409).send({ success: false, errors: [{ detail: "Sorry! You're not authorized to submit instances of fraud"}] });
+
+    FraudInstanceModel.find({confirmed: false}, function(error, unreviewedInstances) {
+      return res.status(200).send(unreviewedInstances);
+    });
+  });
+});
+
+router.post('/fraud-instances/:address/review', (req, res, next) => {
+  const apiKey = req.headers['x-api-key'];
+  UserModel.findOne({apiKey: { $regex : new RegExp(apiKey, "i") } }, function(err, user) {
+    if (!user) return res.status(404).send({ success: false, errors: [{ detail: "No such user"}] });
+    if (!user.allowedToReviewFraud) return res.status(409).send({ success: false, errors: [{ detail: "Sorry! You're not authorized to submit instances of fraud"}] });
+
+    FraudInstanceModel.findOne({address: req.params.address}, function(error, fraudInstance) {
+      if (!fraudInstance) return res.status(404).send({ success: false, errors: [{ detail: "Fraud instance not found"}] });
+      if (fraudInstance.constributor == apiKey) return res.status(400).send({ success: false, errors: [{ detail: "You cannot review your own fraud instance submissions"}] });
+
+      FraudInstanceModel.update({address: req.params.address}, {
+        confirmed: req.body.confirm,
+        reviewer: apiKey
+      }, function(error, reviewedInstances) {
+        return res.status(200).send({success: true });
+      });
+    });
+  });
 });
 
 /*
