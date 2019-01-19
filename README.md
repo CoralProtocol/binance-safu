@@ -148,7 +148,7 @@ To `review` instances of fraud
 
 **Post a review of a Fraud Instance**
 
-`curl -XPOST "localhost:3000/fraud-instances/0x3d9dfa1fbcb5b258d224fe6d147c2df9890a3c99/review" -H "x-api-key: 43c51a9c-4e50-471a-be52-22c836eaa867" -H "content-type: application/json" -d '{"confirm":true}'`
+`curl -XPOST "localhost:3000/fraud-instances/eth/0x3d9dfa1fbcb5b258d224fe6d147c2df9890a3c99/review" -H "x-api-key: 43c51a9c-4e50-471a-be52-22c836eaa867" -H "content-type: application/json" -d '{"confirm":true}'`
 
 
 ### Testing:

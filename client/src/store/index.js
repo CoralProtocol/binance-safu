@@ -58,6 +58,22 @@ export const store = new Vuex.Store({
       const response = await axios.get('http://localhost:3000/fraud-instances')
       commit('SET_INSTANCES', response.data)
       return response.data
+    },
+    async verifyFraudInstance ({ commit }, payload) {
+      console.log(payload.urlSnippet);
+      var response = await axios({
+        method: 'post',
+        url: 'http://localhost:3000/fraud-instances/'+payload.urlSnippet+'/review',
+        data: {
+          "confirm": true
+        }
+      });
+      response = await axios.get('http://localhost:3000/fraud-instances')
+      commit('SET_INSTANCES', response.data)
+      return response.data
+      // const response = await axios.get('http://localhost:3000/fraud-instances')
+      // commit('SET_INSTANCES', response.data)
+      // return response.data
     }
   },
 })

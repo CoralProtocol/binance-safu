@@ -112,9 +112,18 @@ router.post('/fraud-instances', (req, res, next) => {
           INSERT INTO fraud_instances(id, address_hash, source, category) VALUES
             ('5a8787b326206a0014797581${req.body.address}', '${req.body.address}', '${req.body.reason}', 'SAFU_test');
         `;
-        psql.psqlClient.query(queryString, (err, res) => {
-          if (err) return callback(null, err);
-        });
+        if (req.body.blockchain == 'eth') {
+          psql.ethPsqlClient.query(queryString, (err, res) => {
+            if (err) return callback(null, err);
+          });
+        }
+
+        else if (req.body.blockchain == 'btc') {
+          psql.btcPsqlClient.query(queryString, (err, res) => {
+            if (err) return callback(null, err);
+          });
+        }
+
 
         return res.status(200).send({ success: true });
       });
@@ -134,7 +143,7 @@ router.get('/fraud-instances', (req, res, next) => {
   });
 });
 
-router.post('/fraud-instances/:address/review', (req, res, next) => {
+router.post('/fraud-instances/:blockchain/:address/review', (req, res, next) => {
   const apiKey = req.headers['x-api-key'];
   UserModel.findOne({apiKey: { $regex : new RegExp(apiKey, "i") } }, function(err, user) {
     if (!user) return res.status(404).send({ success: false, errors: [{ detail: "No such user"}] });

@@ -5,22 +5,22 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>ID</th>
           <th>Address</th>
           <th>Blockchain</th>
           <th>Reason</th>
           <th>Severity</th>
           <th>Metadata</th>
+          <th>Review</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="instance in instances" :key="instance._id">
-          <td>{{ instance._id }}</td>
           <td>{{ instance.address }}</td>
           <td>{{ instance.blockchain }}</td>
           <td>{{ instance.reason }}</td>
           <td>{{ instance.severity }}</td>
           <td>{{ instance.metadata }}</td>
+          <td><a href="#" v-on:click="verifyFraudInstance(instance.blockchain+'/'+instance.address)">✅</a></td>
         </tr>
       </tbody>
     </table>
@@ -50,6 +50,18 @@ export default {
       this.fraudInstancesEvent = null
       this.$store.dispatch('loadInstances', {
 
+      }, (err, result) => {
+        if (err) {
+          console.log(err)
+        }
+      })
+    },
+
+    verifyFraudInstance (event) {
+      // Reset variables
+      this.fraudInstancesEvent = null
+      this.$store.dispatch('verifyFraudInstance', {
+        urlSnippet: event
       }, (err, result) => {
         if (err) {
           console.log(err)
