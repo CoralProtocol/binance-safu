@@ -1,5 +1,38 @@
 # Binance SAFU Hackathon App
 
+## Project Brief
+
+Verified Partner Fraud Submission
+
+Learn from Anti-spam movement: trusted sources provided all the definitions.
+Governance required to prevent gaming of rating systems - it does not exist
+
+This is built for large trusted organizations that need to be able to submit and share information, not for individual submissions. This is B2B only - only for companies who want to submit fraud and contribute to Coral’s efforts to score wallets and create the green zone.
+
+### Validator Accreditation
+1. Generate a key-pair (validator account)
+  1. All Validators are approved by Coral as central authority
+  2. All validations must be signed
+2. Approves Fraud Submitters
+3. Reviews fraud that is submitted
+
+### Fraud Submission Engine
+1. Generate a key-pair (submitter account)
+  1. Submitters are approved by Validators
+  2. All fraud submissions would be signed by this key
+2. Submit in a standardized format
+  1. Category
+      1. Phishing
+      2. Money Laundering
+  2. Severity
+    1. 1-10 rating system
+3. Fire alerts
+
+### Reputation System
+* All participants in the system have a reputation that is maintained based on performance
+* Keys can be revoked
+
+
 ## API
 
 ### Users
