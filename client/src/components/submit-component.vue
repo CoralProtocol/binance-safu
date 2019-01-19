@@ -2,20 +2,21 @@
   <div class="submit container" v-if="allowedToSubmitFraud">
     <h1>{{ msg }}</h1>
     <div class="request container">
-      Chain:
-      <select v-model="id_chain">
-        <option value="eth" selected="selected">eth</option>
-        <option value="btc">btc</option>
-      </select>&nbsp;
-      Address: <input v-model="id_address" placeholder="ex: 0x28hlm72...">
-      Reason: <select v-model="id_reason">
+    <table class="table table-striped">
+      <tr><td>Chain</td><td>  <select v-model="id_chain">
+          <option value="eth" selected="selected">eth</option>
+          <option value="btc">btc</option>
+        </select></td></tr>
+      <tr><td>Address</td><td><input v-model="id_address" placeholder="ex: 0x28hlm72..."></td></tr>
+      <tr><td>Reason</td><td>  <select v-model="id_reason">
         <option value="blackmail" selected="selected">Blackmail</option>
         <option value="ofac">Government Watchlist</option>
         <option value="ransomeware">Ransomware</option>
         <option value="social_media_platform">Malicious Social Media Posting</option>
-      </select>
-      Severity: <input v-model="id_severity" placeholder="1">
-      Metadata as JSON: <input v-model="id_metadata" placeholder='{"url":"http://123.ngrok.io"}'>
+        </select></td></tr>
+      <tr><td>Severity</td><td><input v-model="id_severity" placeholder="1"></td></tr>
+      <tr><td>Metadata as JSON</td><td><input v-model="id_metadata" placeholder='{"url":"http://123.ngrok.io"}'></td></tr>
+      </table>
       <button v-on:click="submitEvidenceOfFraud">Submit Evidence of Fraud</button>
     </div>
   </div>
@@ -82,5 +83,9 @@ li {
 }
 a {
   color: #42b983;
+}
+
+.container {
+  width:370px;
 }
 </style>

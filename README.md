@@ -165,5 +165,5 @@ To `review` instances of fraud
 * Request the score of that address
 * Create an instance of fraud on that address
 * See alert!
-* Clean PSQL (`DELETE FROM fraud_instances WHERE id='5a8787b326206a00147975810x3d9dfa1fbcb5b258d224fe6d147c2df9890a3c99';` and `delete from webhooks where api_key='231840c0-606f-4370-be50-6f5740abfd25';`)
+* Clean PSQL (`delete from fraud_instances where category='SAFU_test';` and `delete from webhooks where api_key='231840c0-606f-4370-be50-6f5740abfd25';`)
 * Clean up Mongo (remove that fraud instance)
