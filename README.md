@@ -1,4 +1,12 @@
-# Binance SAFU Hackathon App
+# Binance SAFU Hackathon
+
+* [Conference](https://www.binancefair.com/binance-conference/)
+* [Hackathon](https://www.binancefair.com/safu-hackathon/)
+
+* Theme: Query Platform for Address Security: *“Is the transaction address you are sending your crypto to SAFU?”*
+
+What is [SAFU](https://www.urbandictionary.com/define.php?term=Safu)?
+*A cryptocurrency term for safe popularized by the Bizonnaci YouTube channel after the CEO of Binance tweeted “Funds are safe.”*
 
 ## The Coral Protocol
 
@@ -10,7 +18,7 @@ The goal of Coral as an organization is to build a **Green Zone** for blockchain
 
 ## A Method for Verified Partner Fraud Submission
 
-To build a comprehensive and reliable set of trust scores, training data is required. To date, there is no effective, generalized and scalable method for the blockchain community to collaboratively create this data set. 
+To build a comprehensive and reliable set of trust scores, training data is required. To date, there is no effective, generalized and scalable method for the blockchain community to collaboratively create this data set.
 
 ### Principles
 * Learn from 1990s Anti-spam movement - ingesting fraud data from third parties is prone to manipulation.
@@ -38,11 +46,13 @@ To build a comprehensive and reliable set of trust scores, training data is requ
 * All fraud must be categorized.
 * All fraud submissions must be rated by impact.
 
-# API
+## Technical Specifications
 
-## Consumers
+### API
 
-### Users
+### Consumers
+
+#### Users
 
 To `get` Denali's user object
 
@@ -62,7 +72,7 @@ To `get` Denali's user object
 }
 ```
 
-### Trust Scores
+#### Trust Scores
 
 To `get` the trust score of an address
 
@@ -100,15 +110,15 @@ Note that this will debit your wallet by 1 REEF and perform payouts to contribut
 * If a trusted third partner discovered this instance of fraud and it's unconfirmed, they are credited 0.8 REEF and Coral is credited 0.2 REEF
 * If a trusted third partner discovered this instance of fraud and it's confirmed, the contributor is credited 0.7 REEF, the reviewer is credited 0.1 REEF and Coral is credited 0.2 REEF
 
-### Trust Score Alerts
+#### Trust Score Alerts
 
 To set up an alert on an address to be notified whenever there's an instance of fraud tied to that address
 
 `curl -XPOST "localhost:3000/trust-score-alerts" -H "x-api-key: 43c51a9c-4e50-471a-be52-22c836eaa867" -H "content-type: application/json" -d '{"address":"0x3d9dfa1fbcb5b258d224fe6d147c2df9890a3c99","blockchain":"eth","name":"Binance SAFU (Trust Wallet)","url":"http://fee5ea86.ngrok.io/slack"}'`
 
-## Contributors
+### Contributors
 
-### Instances of Fraud
+#### Instances of Fraud
 
 **Submit Fraud Instances**
 
