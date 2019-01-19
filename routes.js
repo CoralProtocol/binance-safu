@@ -14,10 +14,11 @@ router.post('/', (req, res, next) => {
 
 router.get('/users/me', (req, res, next) => {
   const apiKey = req.headers['x-api-key'];
-  const user = await UserModel.findOne({apiKey: { $regex : new RegExp(apiKey, "i") } })
-  console.log(user);
-  if (!user) return next(new AppError('User not found.'))
-  res.json(user)
+  UserModel.findOne({apiKey: { $regex : new RegExp(apiKey, "i") } }, function(err, user) {
+    console.log(user);
+    if (!user) return next(new AppError('User not found.'))
+    res.json(user)
+  });
 });
 
 /*
