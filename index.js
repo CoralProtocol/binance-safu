@@ -8,6 +8,7 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const cors = require('cors');
 const routes = require('./routes')
+const psql = require('./lib/psql');
 
 const databaseUri = process.env.MONGODB_URI
 mongoose.connect(databaseUri, {
@@ -21,6 +22,8 @@ const port = process.env.PORT;
 const corsOptions = {
   origin: '*'
 };
+
+psql.connect();
 
 app.use(bodyParser());
 app.use(expressValidator());

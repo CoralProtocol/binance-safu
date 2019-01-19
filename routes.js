@@ -3,6 +3,7 @@ const router = require('express').Router()
 const AppError = require('./config/error')
 const UserModel = require('./models/user')
 const FraudInstanceModel = require('./models/fraudInstance')
+const psql = require('./lib/psql');
 
 const { WebClient } = require('@slack/client');
 const slackClient = new WebClient(process.env.SLACK_TOKEN);
@@ -105,9 +106,17 @@ router.post('/fraud-instances', (req, res, next) => {
 
       FraudInstanceModel.create(newInstance, function(error, instance) {
         if (error) return res.status(400).send({ success: false, errors: [{ detail: "Schema error?"}] });
-        return res.status(200).send({ success: true });
 
-        // INSERT TO PSQL
+        // Insert into PSQL so our production database is in sync
+        const queryString = `
+          INSERT INTO fraud_instances(id, address_hash, source, category) VALUES
+            ('5a8787b326206a0014797581${req.body.address}', '${req.body.address}', '${req.body.reason}', 'SAFU_test');
+        `;
+        psql.psqlClient.query(queryString, (err, res) => {
+          if (err) return callback(null, err);
+        });
+
+        return res.status(200).send({ success: true });
       });
     });
   });
@@ -145,17 +154,55 @@ router.post('/fraud-instances/:address/review', (req, res, next) => {
   });
 });
 
+router.post('/trust-score-alerts', (req, res, next) => {
+  const apiKey = req.headers['x-api-key'];
+  UserModel.findOne({apiKey: { $regex : new RegExp(apiKey, "i") } }, function(err, user) {
+    if (!user) return res.status(404).send({ success: false, errors: [{ detail: "No such user"}] });
+
+    const options = {
+      url: 'https://api.heycoral.com/trust-score-alerts',
+      method: "POST",
+      headers: {
+        "x-api-key": process.env.CORAL_API_KEY
+      },
+      json: {
+        blockchain: req.body.blockchain,
+        name: req.body.name,
+        address: req.body.address,
+        url: req.body.url,
+        secret: req.body.secret,
+        action: "fraud_instance.new"
+      }
+    }
+
+    request(options, (err, resp, body) => {
+      if (err) { return console.log(err); }
+      return res.status(200).send(body)
+    });
+  });
+});
+
 /*
 This integration uses Slack to message channel SLACK_CONVERSATION_ID when an alert is triggered
 */
+var recievedAlertsMap = {}
 router.post('/slack', (req, res, next) => {
+  const address = req.body.address;
+  const now = new Date();
+
+  // De-dupe Slack alerts if alerts are more than 5 seconds apart
+  if (address in recievedAlertsMap && now - recievedAlertsMap[address] < 1000 * 5) {
+    return res.status(200).send('🕔');
+  }
+  recievedAlertsMap[address] = now;
+
   slackClient.chat.postMessage({
     channel: process.env.SLACK_CONVERSATION_ID,
     text: `
       🚨 Coral Protocol Trust Score Alert 🚨 \n
       🐙 *Alert Name:* \`${req.body.name}\` \n
       🐙 *Action Type:* \`${req.body.action}\` \n
-      🐙 *Address:* \`${req.body.address}\` \n
+      🐙 *Address:* \`${address}\` \n
       🐙 *Blockchain:* \`${req.body.blockchain}\` \n
       Thanks for keeping the blockchain safe 🎉
     `

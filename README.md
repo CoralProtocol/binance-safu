@@ -41,7 +41,9 @@ This is built for large trusted organizations that need to be able to submit and
 * Keys can be revoked
 
 
-## API
+# API
+
+## Consumers
 
 ### Users
 
@@ -100,6 +102,14 @@ Note that this will debit your wallet by 1 REEF and perform payouts to contribut
 * If Coral discovered the instance of fraud, we are credited 1 REEF
 * If a trusted third partner discovered this instance of fraud and it's unconfirmed, they are credited 0.8 REEF and Coral is credited 0.2 REEF
 * If a trusted third partner discovered this instance of fraud and it's confirmed, the contributor is credited 0.7 REEF, the reviewer is credited 0.1 REEF and Coral is credited 0.2 REEF
+
+### Trust Score Alerts
+
+To set up an alert on an address to be notified whenever there's an instance of fraud tied to that address
+
+`curl -XPOST "localhost:8080/trust-score-alerts" -H "x-api-key: 43c51a9c-4e50-471a-be52-22c836eaa867" -H "content-type: application/json" -d '{"address":"0x3d9dfa1fbcb5b258d224fe6d147c2df9890a3c99","blockchain":"eth","name":"Binance SAFU (Trust Wallet)","url":"http://fee5ea86.ngrok.io/slack"}'`
+
+## Contributors
 
 ### Instances of Fraud
 
