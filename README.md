@@ -143,3 +143,14 @@ To `review` instances of fraud
 **Post a review of a Fraud Instance**
 
 `curl -XPOST "localhost:3000/fraud-instances/0x3d9dfa1fbcb5b258d224fe6d147c2df9890a3c99/review" -H "x-api-key: 43c51a9c-4e50-471a-be52-22c836eaa867" -H "content-type: application/json" -d '{"confirm":true}'`
+
+
+### Testing:
+* `npm start`
+* `ngrok http 8080`
+* Create a trust score alert on an address
+* Request the score of that address
+* Create an instance of fraud on that address
+* See alert!
+* Clean PSQL (`DELETE FROM fraud_instances WHERE id='5a8787b326206a00147975810x3d9dfa1fbcb5b258d224fe6d147c2df9890a3c99';` and `delete from webhooks where api_key='231840c0-606f-4370-be50-6f5740abfd25';`)
+* Clean up Mongo (remove that fraud instance)
