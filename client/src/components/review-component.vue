@@ -1,6 +1,6 @@
 <template>
   <div class="review container">
-    <h1>{{ msg }}</h1>
+    <!-- <h1>{{ msg }}</h1> -->
     <button v-on:click="clickGetFraudInstances">Get fraud instances</button>
     <table class="table table-striped">
       <thead>

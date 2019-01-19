@@ -3,6 +3,7 @@
     <!-- <h2>{{ msg }}</h2> -->
     <!-- Container for the 'request score/alerting' functionality -->
     <div class="request container">
+      Chain: <input v-model="id_chain" placeholder="eth or btc">
       Address: <input v-model="id_address" placeholder="ex: 0x28hlm72...">
         <p> </p>
         <button v-on:click="clickRequestScoreEvent">Request Score</button>
@@ -13,8 +14,8 @@
         <p v-else id="request-score-event-failed"><i aria-hidden="true" class="fa fa-times"></i> Error: Score not returned.</p>
       </div>
       <!-- <div class="event" v-if="requestAlertingEvent">
-        <p v-if="requestScoreEvent.trustScore" id="request-score-event-succeed"><i aria-hidden="true" class="fa fa-check"></i> Trust Score: {{requestScoreEvent._trustScore}}.</p>
-        <p v-else id="request-score-event-failed"><i aria-hidden="true" class="fa fa-times"></i> Error: Score not returned.</p>
+        <p v-if="requestAlertingEvent.trustScore" id="request-alerting-event-succeed"><i aria-hidden="true" class="fa fa-check"></i> Trust Score: {{requestAlertingEvent._result}}.</p>
+        <p v-else id="request-alerting-event-failed"><i aria-hidden="true" class="fa fa-times"></i> Error: Score not returned.</p>
       </div> -->
     </div>
   </div>
@@ -27,6 +28,7 @@ export default {
     return {
       msg: 'Request address score/alerts',
       id_address: null,
+      id_chain: null,
       pending: false,
       requestScoreEvent: null,
       requestAlertingEvent: null
@@ -36,9 +38,9 @@ export default {
     clickRequestScoreEvent (event) {
       // Reset variables
       this.requestScoreEvent = null
-      this.id_address = null
+      // this.id_address = null
       const payload = {
-        blockchain: 'eth',
+        blockchain: this.id_chain,
         address: this.id_address
       }
       this.$store.dispatch('getScore', payload, {
@@ -48,6 +50,8 @@ export default {
           console.log(err)
         }
       })
+      this.id_address = null
+      this.id_chain = null
     }
   }
 }

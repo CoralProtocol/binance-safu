@@ -30,7 +30,7 @@ export const store = new Vuex.Store({
     SET_INSTANCES (state, res) {
       console.log('get fraud instances successful:')
       console.log(res)
-      state.instances = res.r
+      state.instances = res
     },
     SET_SCORE (state, res) {
       console.log('Score mutation successful:')
@@ -44,23 +44,20 @@ export const store = new Vuex.Store({
     }
   },
   actions: {
-    getScore ({ commit }, payload) {
-      axios
-        .get('http://localhost:3000/trust-scores/eth/0x3d9dfa1fbcb5b258d224fe6d147c2df9890a3c99')
-        .then(r => r.data)
-        .then(address => {
-          console.log(address)
-        })
-        .commit('SET_SCORE', payload)
+    async getScore ({ commit }, payload) {
+      console.dir(payload)
+      const baseScoreRequest = 'http://localhost:3000/trust-scores/'
+      const requestedChain = payload.blockchain + '/'
+      const requestedAddress = payload.address
+      const fullScoreRequest = baseScoreRequest + requestedChain + requestedAddress
+      const response = await axios.get(fullScoreRequest)
+      commit('SET_SCORE', response.data)
+      return response.data
     },
-    loadInstances ({ commit }) {
-      axios
-        .get('http://localhost:3000/fraud-instances')
-        .then(r => r.data)
-        // .then(_id => {
-        //   console.log(_id)
-        // })
-        .commit('SET_INSTANCES')
+    async loadInstances ({ commit }) {
+      const response = await axios.get('http://localhost:3000/fraud-instances')
+      commit('SET_INSTANCES', response.data)
+      return response.data
     }
   },
 })
