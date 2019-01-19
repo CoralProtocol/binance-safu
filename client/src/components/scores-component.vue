@@ -3,14 +3,15 @@
     <h1>Query for Trust Scores</h1>
     <!-- Container for the 'request score/alerting' functionality -->
     <div class="request container">
-      Chain:
-      <select v-model="id_chain">
-        <option value="eth">eth</option>
-        <option value="btc">btc</option>
-      </select>&nbsp;
-      Address: <input v-model="id_address" placeholder="ex: 0x28hlm72...">
-      Name: <input v-model="id_name" placeholder="">
-      URL: <input v-model="id_url" placeholder="">
+      <table class="table table-striped">
+        <tr><td>Chain</td><td><select v-model="id_chain">
+          <option value="eth">eth</option>
+          <option value="btc">btc</option>
+          </select></td></tr>
+        <tr><td>Address</td><td><input v-model="id_address" placeholder="ex: 0x28hlm72..."></td></tr>
+        <tr><td>Name</td><td><input v-model="id_name" placeholder=""></td></tr>
+        <tr><td>URL</td><td><input v-model="id_url" placeholder=""></td></tr>
+      </table>
         <p> </p>
         <button v-on:click="clickRequestScoreEvent">Request Score</button>
         <button v-on:click="clickRequestAlertingEvent">Request Alerting</button>
@@ -151,5 +152,9 @@ h1, h2 {
 }
 #structure-failed {
   color:red;
+}
+
+.container {
+  width:370px;
 }
 </style>

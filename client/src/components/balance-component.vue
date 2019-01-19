@@ -4,8 +4,8 @@
     <p>You have {{ walletBalance }} Trust Score Requests remaining. To get more you can either contribute instances of fraud, review instances of fraud, or purchase more</p>
 
     <div>
-      <span v-if="allowedToSubmitFraud">📤 You are allowed to submit evidence of fraud</span>
-      <span v-if="allowedToReviewFraud">🔍 You are allowed to review evidence of fraud</span>
+      <p v-if="allowedToSubmitFraud">📤 You are authorized to submit evidence of fraud</p>
+      <p v-if="allowedToReviewFraud">🔍 You are authorized to review evidence of fraud</p>
     </div>
   </div>
 </template>
@@ -67,5 +67,9 @@ a {
 
 title {
   align-: left
+}
+
+p {
+  text-align: center;
 }
 </style>

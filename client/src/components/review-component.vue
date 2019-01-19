@@ -18,7 +18,7 @@
           <td>{{ instance.blockchain }}</td>
           <td>{{ instance.reason }}</td>
           <td>{{ instance.severity }}</td>
-          <td>{{ instance.metadata }}</td>
+          <td class='markdown'>{{ JSON.stringify(JSON.parse(instance.metadata), null, 4) }}</td>
           <td><a href="#" v-on:click="verifyFraudInstance(instance.blockchain+'/'+instance.address)">✅</a></td>
         </tr>
       </tbody>
@@ -90,5 +90,15 @@ li {
 }
 a {
   color: #42b983;
+}
+
+td {
+  text-align: center;
+}
+.markdown {
+  font-family: "Lucida Console", Monaco, monospace;
+  font-size: 0.8rem;
+  line-height: 1.2;
+  text-align: left;
 }
 </style>
