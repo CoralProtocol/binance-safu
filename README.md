@@ -4,23 +4,22 @@
 
 Coral Protocol is an anti-fraud protocol that protects businesses who are transacting or taking custody of cryptocurrency. Coral mitigates exposure to money laundering, theft, and other common fraud use cases. Coral tracks the flow of fraudulent funds and uses predictive analytics to assign actionable trust scores to all wallet addresses. Rather than relying only on identity, behavioral biometrics is utilized to reduce fraud.
 
-The goal of Coral as an organization is to build a **Green Zone** for blockchain payments. The green zone is an ecosystem where the incidence of fraud is reduced to that of the traditional payments industry - where it's safe even for the most vulnerable members of the population to participate.
+The goal of Coral as an organization is to build a **Green Zone** for blockchain payments. The green zone is an ecosystem where the incidence of fraud is reduced to that of the traditional payments industry or better - where it's safe even for the most vulnerable members of the population to participate. The current state of blockchain payments is akin to the "Catch me if you can" era of the current banking system, and is prohibitive to mass adoption.
+
+*Distributed Finance will not gain mainstream adoption without first the formation of the Green Zone.*
 
 ## A Method for Verified Partner Fraud Submission
 
-To build a comprehensive and reliable set of trust scores, training data is required.
-
-This is built for large trusted organizations that need to be able to submit and share information, not for individual submissions. This is B2B only - only for companies who want to submit fraud and contribute to Coral’s efforts to score wallets and create the green zone.
+To build a comprehensive and reliable set of trust scores, training data is required. To date, there is no effective, generalized and scalable method for the blockchain community to collaboratively create this data set. 
 
 ### Principles
-* Learn from 1990s Anti-spam movement.
-* Trusted sources provided all the definitions
-* Fine tuned governance required to prevent gaming of rating and submission systems.
+* Learn from 1990s Anti-spam movement - ingesting fraud data from third parties is prone to manipulation.
+* Fine tuned governance is required to prevent gaming of rating and submission systems.
 * Contributors should be verified organizations with proprietary, siloed data resources to offer.
 
 ### Questions
-* Should individuals be able to PoA their address, and contest attestations of fraud?
-* Should individuals be able to PoA their address, and attest to theft or fraud against them?
+* Should individuals be able contest attestations of fraud?
+* Should individuals be able to attest to theft or fraud against them?
 
 ### Reputation System
 * All participants in the system have a reputation that is maintained based on performance.
