@@ -1,7 +1,10 @@
 <template>
   <div class="submit container" v-if="allowedToSubmitFraud">
     <h1>{{ msg }}</h1>
-    <div class="request container">
+    <div>
+      <div>
+        <p align="center" v-if="allowedToSubmitFraud"><i>📤 You are authorized to submit evidence of fraud</i></p>
+      </div>
     <table class="table table-striped">
       <tr><td class="cellDescriptor">Chain</td><td>  <select v-model="id_chain">
           <option value="eth" selected="selected">eth</option>
@@ -30,7 +33,7 @@ export default {
   name: 'submit-component',
   data () {
     return {
-      msg: 'Submit Evidence of Fraud',
+      msg: 'Submit evidence of fraud',
       id_reason: 'blackmail',
       id_chain: 'eth',
       id_url: '',

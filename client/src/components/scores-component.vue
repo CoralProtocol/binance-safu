@@ -1,6 +1,6 @@
 <template>
   <div class="score container">
-    <h1>Query for Trust Scores</h1>
+    <h1>Query for trust scores</h1>
     <!-- Container for the 'request score/alerting' functionality -->
     <div class="request container">
       <table class="table table-striped">
@@ -42,8 +42,6 @@ export default {
   ]),
   methods: {
     clickRequestScoreEvent (event) {
-      // Reset event
-      // this.requestScoreEvent = null
       const payload = {
         blockchain: this.id_chain,
         address: this.id_address
@@ -76,18 +74,6 @@ h1, h2 {
 }
 #button {
   width:25px;
-}
-#request-score-event-succeed {
-  color: green;
-}
-#request-score-event-failed {
-  color:red;
-}
-#structure-succeed {
-  color: green;
-}
-#structure-failed {
-  color:red;
 }
 
 </style>
