@@ -2,7 +2,6 @@
   <div class="balance">
     <h2 class="title">Welcome {{ firstName}}!</h2>
     <p>You have <strong>{{ walletBalance }}</strong> Trust Score Requests remaining. </p>
-    <p>To get more you can either contribute instances of fraud, review instances of fraud, or purchase more.</p>
   </div>
 </template>
 
