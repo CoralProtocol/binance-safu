@@ -31,8 +31,8 @@ const FraudInstanceSchema = new Schema({
   reviewer: {
     type: String,
   },
-  metadata: {
-    type: Schema.Types.Mixed
+  url: {
+    type: String
   }
 }, {
   timestamps: true

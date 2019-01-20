@@ -10,9 +10,9 @@ What is [SAFU](https://www.urbandictionary.com/define.php?term=Safu)?
 
 ## The Coral Protocol
 
-Coral Protocol is an anti-fraud protocol that protects businesses who are transacting or taking custody of cryptocurrency. Coral mitigates exposure to money laundering, theft, and other common fraud use cases. Coral tracks the flow of fraudulent funds and uses predictive analytics to assign actionable trust scores to all wallet addresses. Rather than relying only on identity, behavioral biometrics is utilized to reduce fraud.
+Coral Protocol is an anti-fraud protocol that protects businesses who are transacting or taking custody of cryptocurrency. Coral mitigates exposure to money laundering, theft, and other common fraud use cases. Coral tracks the flow of fraudulent funds and uses predictive analytics to assign actionable trust scores to all wallet addresses. Rather than relying only on identity, behavioral biometrics are utilized to reduce fraud.
 
-The goal of Coral as an organization is to build a **Green Zone** for blockchain payments. The green zone is an ecosystem where the incidence of fraud is reduced to that of the traditional payments industry or better - where it's safe even for the most vulnerable members of the population to participate. The current state of blockchain payments is akin to the "Catch me if you can" era of the current banking system, and is prohibitive to mass adoption.
+The goal of Coral as an organization is to build a **Green Zone** for blockchain payments. The green zone is an ecosystem where the incidence of fraud is reduced to that of the traditional payments industry or better - where it's safe even for the most vulnerable members of the population to participate. The current state of blockchain payments is akin to the "[Catch Me if You Can](http://25.media.tumblr.com/a0f8c6a5b5b755c7ff61e3ce132cb900/tumblr_mtcm71ReTF1sh1vgto2_500.gif)" era of the current banking system, and is prohibitive to mass adoption.
 
 *Distributed Finance will not gain mainstream adoption without first the formation of the Green Zone.*
 

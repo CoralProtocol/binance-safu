@@ -1,6 +1,6 @@
 <template>
   <div class="score container">
-    <h1>Query for Trust Scores</h1>
+    <h1>Set Up Trust Score Alert</h1>
     <!-- Container for the 'request score/alerting' functionality -->
     <div class="request container">
       <table class="table table-striped">
@@ -9,55 +9,52 @@
           <option value="btc">btc</option>
           </select></td></tr>
         <tr><td class="cellDescriptor">Address</td><td><input v-model="id_address" placeholder="ex: 0x28hlm72..."></td></tr>
-        <tr><td colspan="2"><button v-on:click="clickRequestScoreEvent">Request Trust Score</button></td></tr>
+        <tr><td class="cellDescriptor">Name</td><td><input v-model="id_name" placeholder=""></td></tr>
+        <tr><td class="cellDescriptor">URL</td><td><input v-model="id_url" placeholder=""></td></tr>
+        <tr><td colspan="2"><button v-on:click="clickRequestAlertingEvent">Set Up Alert</button></td></tr>
       </table>
-
-        <table class="table table-striped" v-if="reportedScore.address">
-          <tr><td class="cellDescriptor dynamicResult">Address</td><td class="cryptoAddress">{{ reportedScore.address }}</td></tr>
-          <tr><td class="cellDescriptor dynamicResult">Score</td><td>{{ reportedScore.score }}</td></tr>
-          <tr><td class="cellDescriptor dynamicResult">Properties</td><td class="markdown">{{ JSON.stringify(reportedScore.properties, null, 4) }}</td></tr>
-          <tr v-if="reportedScore.confirmed"><td class="cellDescriptor dynamicResult">Confirmed</td><td>{{ reportedScore.confirmed }}</td></tr>
-          <tr v-if="reportedScore.reason"><td class="cellDescriptor dynamicResult">Reason</td><td>{{ reportedScore.reason }}</td></tr>
-          <tr v-if="reportedScore.severity"><td class="cellDescriptor dynamicResult">Severity</td><td>{{ reportedScore.severity }}</td></tr>
-          <tr v-if="reportedScore.url"><td class="cellDescriptor dynamicResult">URL</td><td><a :href="reportedScore.url" target="_blank">{{ reportedScore.url }}</a></td></tr>
-        </table>
     </div>
   </div>
 </template>
 <script>
 import { mapState } from 'vuex'
 export default {
-  name: 'scores-component',
+  name: 'alert-component',
   data () {
     return {
       msg: 'Request address score/alerts',
       id_address: null,
       id_chain: 'eth',
+      id_name: null,
+      id_url: null,
       pending: false,
-      requestScoreEvent: null
+      requestAlertingEvent: null
     }
   },
   computed: mapState([
     'reportedScore'
   ]),
   methods: {
-    clickRequestScoreEvent (event) {
+    clickRequestAlertingEvent (event) {
       // Reset event
-      // this.requestScoreEvent = null
+      // this.requestAlertingEvent = null
       const payload = {
         blockchain: this.id_chain,
-        address: this.id_address
+        address: this.id_address,
+        name: this.id_name,
+        url: this.id_url
       }
-      this.$store.dispatch('getScore', payload, {
+      this.$store.dispatch('setAlerting', payload, {
 
       }, (err, result) => {
         if (err) {
           console.log(err)
         }
       })
-      // Reset payload
       this.id_address = null
       this.id_chain = null
+      this.id_name = null
+      this.id_url = null
     }
   }
 }

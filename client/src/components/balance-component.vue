@@ -1,7 +1,8 @@
 <template>
   <div class="balance">
     <h2 class="title">Welcome {{ firstName}}!</h2>
-    <p>You have {{ walletBalance }} Trust Score Requests remaining. To get more you can either contribute instances of fraud, review instances of fraud, or purchase more</p>
+    <p>You have <strong>{{ walletBalance }}</strong> Trust Score Requests remaining. To get more you can either contribute instances of fraud, review instances of fraud, or purchase more</p>
+    <p>Please note that this is a sample UI. Please see our <a href="https://github.com/CoralProtocol/binance-safu/#api" target="_blank">API docs</a> for integrating this into a production system</p>
 
     <div>
       <p v-if="allowedToSubmitFraud">📤 You are authorized to submit evidence of fraud</p>
@@ -60,9 +61,6 @@ ul {
 li {
   display: inline-block;
   margin: 0 10px;
-}
-a {
-  color: #42b983;
 }
 
 title {

@@ -47,12 +47,13 @@ router.get('/trust-scores/:blockchain/:address', (req, res, next) => {
 
       // Merge with our local Mongo instance
       var payload = JSON.parse(body)
+      console.log(payload.data)
       var baseScore  = 100 - (payload.data.score * 13);
       FraudInstanceModel.findOne({address: address}, function(error, instance) {
         if (instance) {
           payload.data.severity = instance.severity
           payload.data.reason = instance.reason
-          payload.data.metadata = instance.metadata
+          payload.data.url = instance.url
           payload.data.confirmed = instance.confirmed
           payload.data.reviewer = instance.reviewer
           baseScore = baseScore - instance.severity * 10;
@@ -114,13 +115,13 @@ router.post('/fraud-instances', (req, res, next) => {
         `;
         if (req.body.blockchain == 'eth') {
           psql.ethPsqlClient.query(queryString, (err, res) => {
-            if (err) return callback(null, err);
+            if (err) console.log(err);
           });
         }
 
         else if (req.body.blockchain == 'btc') {
           psql.btcPsqlClient.query(queryString, (err, res) => {
-            if (err) return callback(null, err);
+            if (err) console.log(err);
           });
         }
 

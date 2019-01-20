@@ -2,26 +2,15 @@
   <div class="review container" v-if="allowedToReviewFraud">
     <h1>Evidence of Fraud that Needs Review</h1>
     <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Address</th>
-          <th>Blockchain</th>
-          <th>Reason</th>
-          <th>Severity</th>
-          <th>Metadata</th>
-          <th>Review</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="instance in instances" :key="instance._id">
-          <td>{{ instance.address }}</td>
-          <td>{{ instance.blockchain }}</td>
-          <td>{{ instance.reason }}</td>
-          <td>{{ instance.severity }}</td>
-          <td class='markdown'>{{ JSON.stringify(JSON.parse(instance.metadata), null, 4) }}</td>
-          <td><a href="#" v-on:click="verifyFraudInstance(instance.blockchain+'/'+instance.address)">✅</a></td>
-        </tr>
-      </tbody>
+        <div v-for="instance in instances" :key="instance._id">
+        <hr>
+        <tr><td class="cellDescriptor dynamicResult">Address</td><td class="cryptoAddress">{{ instance.address }}</td></tr>
+        <tr><td class="cellDescriptor dynamicResult">Blockchain</td><td>{{ instance.blockchain }}</td></tr>
+        <tr><td class="cellDescriptor dynamicResult">Reason</td><td>{{ instance.reason }}</td></tr>
+        <tr><td class="cellDescriptor dynamicResult">Severity</td><td>{{ instance.severity }}</td></tr>
+        <tr><td class="cellDescriptor dynamicResult">URL</td><td><a :href="instance.url" target="_blank">{{ instance.url }}</a></td></tr>
+        <tr><td class="cellDescriptor dynamicResult">Verify</td><td><a href="#" v-on:click="verifyFraudInstance(instance.blockchain+'/'+instance.address)">✅</a></td></tr>
+        </div>
     </table>
   </div>
 
@@ -88,17 +77,5 @@ li {
   display: inline-block;
   margin: 0 10px;
 }
-a {
-  color: #42b983;
-}
 
-td {
-  text-align: center;
-}
-.markdown {
-  font-family: "Lucida Console", Monaco, monospace;
-  font-size: 0.8rem;
-  line-height: 1.2;
-  text-align: left;
-}
 </style>
