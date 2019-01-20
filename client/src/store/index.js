@@ -23,7 +23,7 @@ export const store = new Vuex.Store({
       confirmed: null,
       reason: null,
       severity: null,
-      metadata: null
+      url: null
     },
     firstName: null,
     allowedToSubmitFraud: false,
@@ -46,7 +46,7 @@ export const store = new Vuex.Store({
       state.reportedScore.confirmed = res.data.confirmed
       state.reportedScore.reason = res.data.reason
       state.reportedScore.severity = res.data.severity
-      state.reportedScore.metadata = res.data.metadata
+      state.reportedScore.url = res.data.url
     },
     SET_USER_DATA (state, res) {
       console.log(res)

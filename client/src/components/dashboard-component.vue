@@ -1,9 +1,8 @@
 <template>
   <div class="dashboard">
-    <h1>{{ title }}</h1>
-    <!-- <h2>{{ tagline }}</h2> -->
     <balance-component/>
     <scores-component/>
+    <alert-component/>
     <submit-component/>
     <review-component/>
   </div>
@@ -15,6 +14,7 @@
 // Import components
 import BalanceComponent from '@/components/balance-component'
 import ScoresComponent from '@/components/scores-component'
+import AlertComponent from '@/components/alert-component'
 import SubmitComponent from '@/components/submit-component'
 import ReviewComponent from '@/components/review-component'
 
@@ -32,6 +32,7 @@ export default {
   components: {
     'balance-component': BalanceComponent,
     'scores-component': ScoresComponent,
+    'alert-component': AlertComponent,
     'submit-component': SubmitComponent,
     'review-component': ReviewComponent
   }
