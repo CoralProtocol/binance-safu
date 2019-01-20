@@ -25,10 +25,6 @@ To build a comprehensive and reliable set of trust scores, training data is requ
 * Fine tuned governance is required to prevent gaming of rating and submission systems.
 * Contributors should be verified organizations with proprietary, siloed data resources to offer.
 
-### Questions
-* Should individuals be able contest attestations of fraud?
-* Should individuals be able to attest to theft or fraud against them?
-
 ### Reputation System
 * All participants in the system have a reputation that is maintained based on performance.
 * All actions taken by all participants are signed with keys.
