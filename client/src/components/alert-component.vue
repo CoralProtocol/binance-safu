@@ -1,6 +1,6 @@
 <template>
   <div class="score container">
-    <h1>Set Up Trust Score Alert</h1>
+    <h1>Set up Trust Score Alert</h1>
     <!-- Container for the 'request score/alerting' functionality -->
     <div class="request container">
       <table class="table table-striped">
@@ -13,6 +13,9 @@
         <tr><td class="cellDescriptor">URL</td><td><input v-model="id_url" placeholder=""></td></tr>
         <tr><td colspan="2"><button v-on:click="clickRequestAlertingEvent">Set Up Alert</button></td></tr>
       </table>
+      <table class="table table-striped" v-if="status">
+          <tr><td class="cellDescriptor dynamicResult">Alert successfully created</td></tr>
+        </table>
     </div>
   </div>
 </template>
@@ -22,7 +25,7 @@ export default {
   name: 'alert-component',
   data () {
     return {
-      msg: 'Request address score/alerts',
+      msg: 'Alerting',
       id_address: null,
       id_chain: 'eth',
       id_name: null,
@@ -32,12 +35,10 @@ export default {
     }
   },
   computed: mapState([
-    'reportedScore'
+    'status'
   ]),
   methods: {
     clickRequestAlertingEvent (event) {
-      // Reset event
-      // this.requestAlertingEvent = null
       const payload = {
         blockchain: this.id_chain,
         address: this.id_address,
@@ -73,18 +74,6 @@ h1, h2 {
 }
 #button {
   width:25px;
-}
-#request-score-event-succeed {
-  color: green;
-}
-#request-score-event-failed {
-  color:red;
-}
-#structure-succeed {
-  color: green;
-}
-#structure-failed {
-  color:red;
 }
 
 </style>

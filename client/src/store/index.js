@@ -59,7 +59,7 @@ export const store = new Vuex.Store({
     SET_ALERTING (state, res) {
       console.log('alerting mutation successful:')
       console.log(res)
-      state.status = res
+      state.status = res.success
     },
     CLEAR_ITEMS (state) {
       state.scores = null

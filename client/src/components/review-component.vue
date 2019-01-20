@@ -1,6 +1,9 @@
 <template>
   <div class="review container" v-if="allowedToReviewFraud">
-    <h1>Evidence of Fraud that Needs Review</h1>
+    <h1>Evidence of Fraud That Needs Review</h1>
+      <div>
+        <p align="center" v-if="allowedToReviewFraud"><i>🔍 You are authorized to review evidence of fraud</i></p>
+      </div>
     <table class="table table-striped">
         <div v-for="instance in instances" :key="instance._id">
         <hr>
@@ -26,9 +29,6 @@ export default {
       fraudInstancesEvent: null
     }
   },
-  // mounted () {
-  //   this.$store.dispatch('loadInstances')
-  // },
   computed: mapState([
     'instances',
     'allowedToReviewFraud'

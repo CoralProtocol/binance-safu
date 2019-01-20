@@ -42,8 +42,6 @@ export default {
   ]),
   methods: {
     clickRequestScoreEvent (event) {
-      // Reset event
-      // this.requestScoreEvent = null
       const payload = {
         blockchain: this.id_chain,
         address: this.id_address
@@ -76,18 +74,6 @@ h1, h2 {
 }
 #button {
   width:25px;
-}
-#request-score-event-succeed {
-  color: green;
-}
-#request-score-event-failed {
-  color:red;
-}
-#structure-succeed {
-  color: green;
-}
-#structure-failed {
-  color:red;
 }
 
 </style>

@@ -1,13 +1,8 @@
 <template>
   <div class="balance">
     <h2 class="title">Welcome {{ firstName}}!</h2>
-    <p>You have <strong>{{ walletBalance }}</strong> Trust Score Requests remaining. To get more you can either contribute instances of fraud, review instances of fraud, or purchase more</p>
-    <p>Please note that this is a sample UI. Please see our <a href="https://github.com/CoralProtocol/binance-safu/#api" target="_blank">API docs</a> for integrating this into a production system</p>
-
-    <div>
-      <p v-if="allowedToSubmitFraud">📤 You are authorized to submit evidence of fraud</p>
-      <p v-if="allowedToReviewFraud">🔍 You are authorized to review evidence of fraud</p>
-    </div>
+    <p>You have <strong>{{ walletBalance }}</strong> Trust Score Requests remaining. </p>
+    <p>To get more you can either contribute instances of fraud, review instances of fraud, or purchase more.</p>
   </div>
 </template>
 
@@ -22,9 +17,7 @@ export default {
   },
   computed: mapState([
     'walletBalance',
-    'firstName',
-    'allowedToSubmitFraud',
-    'allowedToReviewFraud'
+    'firstName'
   ]),
   methods: {
     loadUserData (event) {

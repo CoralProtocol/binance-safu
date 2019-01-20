@@ -5,6 +5,8 @@
     <alert-component/>
     <submit-component/>
     <review-component/>
+    <br>
+    <p>Please note that this is a sample UI. Please see our <a href="https://github.com/CoralProtocol/binance-safu/#api" target="_blank">API docs</a> for integrating this into a production system.</p>
   </div>
 
 </template>
@@ -52,7 +54,7 @@ li {
   display: inline-block;
   margin: 0 10px;
 }
-a {
-  color: #42b983;
+p {
+  text-align: center;
 }
 </style>
