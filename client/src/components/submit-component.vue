@@ -33,7 +33,7 @@ export default {
   name: 'submit-component',
   data () {
     return {
-      msg: 'Submit evidence of fraud',
+      msg: 'Submit Evidence of Fraud',
       id_reason: 'blackmail',
       id_chain: 'eth',
       id_url: '',

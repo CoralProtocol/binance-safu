@@ -1,6 +1,6 @@
 <template>
   <div class="score container">
-    <h1>Set up trust score alert</h1>
+    <h1>Set up Trust Score Alert</h1>
     <!-- Container for the 'request score/alerting' functionality -->
     <div class="request container">
       <table class="table table-striped">

@@ -1,6 +1,6 @@
 <template>
   <div class="review container" v-if="allowedToReviewFraud">
-    <h1>Evidence of fraud that needs review</h1>
+    <h1>Evidence of Fraud That Needs Review</h1>
       <div>
         <p align="center" v-if="allowedToReviewFraud"><i>🔍 You are authorized to review evidence of fraud</i></p>
       </div>

@@ -1,6 +1,6 @@
 <template>
   <div class="score container">
-    <h1>Query for trust scores</h1>
+    <h1>Query for Trust Scores</h1>
     <!-- Container for the 'request score/alerting' functionality -->
     <div class="request container">
       <table class="table table-striped">
